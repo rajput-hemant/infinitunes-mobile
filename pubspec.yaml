@@ -12,12 +12,17 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+  flutter_dotenv: ^5.1.0
+  http: ^1.1.0
+  json_annotation: ^4.8.1
+  build_runner: ^2.4.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  json_serializable: ^6.7.1
 
 flutter:
   uses-material-design: true
