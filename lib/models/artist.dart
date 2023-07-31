@@ -1,44 +1,66 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'models.dart';
+
 part 'artist.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, checked: true)
 class Artist {
-  String id;
-  String? name;
-  String? url;
-  // List<DownloadUrl>? image; // it can be either List<DownloadUrl> bool
-  String? followerCount;
-  String? fanCount;
-  bool? isVerified;
-  String? dominantLanguage;
-  String? dominantType;
-  String? dob;
-  String? fb;
-  String? twitter;
-  String? wiki;
-  List<String>? availableLanguages;
-  bool? isRadioPresent;
+  final String id;
+  final String name;
+  final String role;
+  final String? type;
+  final String url;
 
   Artist({
     required this.id,
-    this.name,
-    this.url,
-    // this.image,
-    this.followerCount,
-    this.fanCount,
-    this.isVerified,
-    this.dominantLanguage,
-    this.dominantType,
-    this.dob,
-    this.fb,
-    this.twitter,
-    this.wiki,
-    this.availableLanguages,
-    this.isRadioPresent,
+    required this.name,
+    required this.role,
+    required this.type,
+    required this.url,
   });
 
   factory Artist.fromJson(Map<String, dynamic> json) => _$ArtistFromJson(json);
 
   Map<String, dynamic> toJson() => _$ArtistToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true, checked: true)
+class ArtistFull {
+  final String id;
+  final String name;
+  final String url;
+  final String? role;
+  final List<DownloadLink> image;
+  final String followerCount;
+  final String fanCount;
+  final bool isVerified;
+  final String dob;
+  final String fb;
+  final String twitter;
+  final String wiki;
+  final List<String> availableLanguages;
+  final bool isRadioPresent;
+
+  ArtistFull({
+    required this.id,
+    required this.name,
+    required this.url,
+    required this.role,
+    required this.image,
+    required this.followerCount,
+    required this.fanCount,
+    required this.isVerified,
+    required this.dob,
+    required this.fb,
+    required this.twitter,
+    required this.wiki,
+    required this.availableLanguages,
+    required this.isRadioPresent,
+  });
+
+  factory ArtistFull.fromJson(Map<String, dynamic> json) =>
+      _$ArtistFullFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ArtistFullToJson(this);
 }

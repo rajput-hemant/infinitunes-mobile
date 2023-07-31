@@ -40,6 +40,26 @@ flutter pub get
 flutter run
 ```
 
+- To build data/model classes, run the following command:
+
+```
+rps gen || dart run build_runner build --delete-conflicting-outputs
+```
+
+- To watch for changes in source code and automatically build data/model classes, run the following command:
+
+```
+rps gen_w || dart run build_runner watch --delete-conflicting-outputs
+```
+
+> **Note**
+> You need to active rps (Run Pubspec Script) executabe globally if you haven't already.
+> To do so, run the following command:
+
+```
+pub global activate rps
+```
+
 <div align=center>
 
 #### [JioSaavn API (Unofficial)][api] by [Sumit Kolhe][cc], [API Docs][api-docs]
@@ -70,7 +90,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <!-----------------------------------{ Links }---------------------------------->
 
-[site]: https://infinitunes-mobile.vercel.app
+[site]: https://infinitunes.vercel.app
 
 <!------------------------------------{ api }----------------------------------->
 

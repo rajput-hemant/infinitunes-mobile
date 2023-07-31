@@ -4,36 +4,38 @@ import 'models.dart';
 
 part 'playlist.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, checked: true)
 class Playlist {
-  String id;
-  String? userId;
-  String? title;
-  String? subtitle;
-  String? type;
-  List<DownloadUrl>? image;
-  String? url;
-  String? songCount;
-  String? firstname;
-  String? followerCount;
-  String? lastUpdated;
-  String? explicitContent;
-  List<Song>? songs;
+  final String id;
+  final String userId;
+  final String name;
+  final String songCount;
+  final String? fanCount;
+  final String? followerCount;
+  final String username;
+  final String firstname;
+  final String lastname;
+  final String? language;
+  final String? shares;
+  final List<DownloadLink> image;
+  final String url;
+  final List<Song> songs;
 
   Playlist({
     required this.id,
-    this.userId,
-    this.title,
-    this.subtitle,
-    this.type,
-    this.image,
-    this.url,
-    this.songCount,
-    this.firstname,
-    this.followerCount,
-    this.lastUpdated,
-    this.explicitContent,
-    this.songs,
+    required this.userId,
+    required this.name,
+    required this.songCount,
+    required this.fanCount,
+    required this.followerCount,
+    required this.username,
+    required this.firstname,
+    required this.lastname,
+    required this.language,
+    required this.shares,
+    required this.image,
+    required this.url,
+    required this.songs,
   });
 
   factory Playlist.fromJson(Map<String, dynamic> json) =>

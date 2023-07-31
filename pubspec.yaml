@@ -2,7 +2,7 @@ name: infinitunes_mobile
 description: An open-source Music Player App built with Flutter.
 publish_to: "none" # to prevent accidental publication of package to pub.dev
 
-version: 1.0.0+1
+version: 0.1.0
 
 environment:
   sdk: ">=3.0.3 <4.0.0"
@@ -29,6 +29,10 @@ flutter:
 
   assets:
     - .env
+
+scripts:
+  gen: dart run build_runner build --delete-conflicting-outputs
+  gen_w: dart run build_runner watch --delete-conflicting-outputs
 
   # fonts:
   #   - family: Schyler

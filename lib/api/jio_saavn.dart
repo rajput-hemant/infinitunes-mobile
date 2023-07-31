@@ -5,7 +5,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../models/models.dart';
 import '../utils/utils.dart';
 
-final String jioSaavnEndpoint = dotenv.env['JIOSAAVN_ENDPOINT']!;
+final String jioSaavnEndpoint =
+    dotenv.env['JIOSAAVN_ENDPOINT'] ?? "https://saavn.me";
 
 class JioSaavnApi {
   Future<T> _jioSaavnGetCall<T>(
@@ -18,7 +19,7 @@ class JioSaavnApi {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        return TResponse.fromJson(data, fromJsonT).data;
+        return Response.fromJson(data, fromJsonT).data;
       } else {
         throw Exception('Error: ${response.statusCode}');
       }
@@ -30,7 +31,7 @@ class JioSaavnApi {
   Future<Module> getHomeData(
       {List<String> langs = const ["hindi", "english"]}) async {
     return await _jioSaavnGetCall<Module>(
-      '/modules?langs=${langs.join(",")}',
+      '/modules?language=${langs.join(",")}',
       (json) => Module.fromJson(json),
     );
   }
@@ -68,44 +69,44 @@ class JioSaavnApi {
     );
   }
 
-  Future<Artist> getArtistDetails(String query) async {
+  Future<ArtistFull> getArtistDetails(String query) async {
     return isJioSaavnLink(query)
-        ? await _jioSaavnGetCall<Artist>(
+        ? await _jioSaavnGetCall<ArtistFull>(
             '/artists/link=$query',
-            (json) => Artist.fromJson(json),
+            (json) => ArtistFull.fromJson(json),
           )
-        : await _jioSaavnGetCall<Artist>(
+        : await _jioSaavnGetCall<ArtistFull>(
             '/artists?id=$query',
-            (json) => Artist.fromJson(json),
+            (json) => ArtistFull.fromJson(json),
           );
   }
 
-  Future<TSearchResponse<Song>> getArtistSongs(
+  Future<SearchResponse<Song>> getArtistSongs(
     String id, {
     int page = 1,
     String? cat = "latest", // [alphabetical, latest]
     String? sort = "asc", // [asc, desc]
   }) async {
-    return await _jioSaavnGetCall<TSearchResponse<Song>>(
+    return await _jioSaavnGetCall<SearchResponse<Song>>(
       '/artists/$id/songs?page=$page&category=$cat&sort=$sort',
-      (json) => TSearchResponse.fromJson(
+      (json) => SearchResponse.fromJson(
         json,
         (json) => Song.fromJson(json as Map<String, dynamic>),
       ),
     );
   }
 
-  Future<TSearchResponse<Playlist>> getArtistAlbums(
+  Future<SearchResponse<Album>> getArtistAlbums(
     String id, {
     int page = 1,
     String? cat = "latest", // [alphabetical, latest]
     String? sort = "asc", // [asc, desc]
   }) async {
-    return await _jioSaavnGetCall<TSearchResponse<Playlist>>(
+    return await _jioSaavnGetCall<SearchResponse<Album>>(
       '/artists/$id/albums?page=$page&category=$cat&sort=$sort',
-      (json) => TSearchResponse.fromJson(
+      (json) => SearchResponse.fromJson(
         json,
-        (json) => Playlist.fromJson(json as Map<String, dynamic>),
+        (json) => Album.fromJson(json as Map<String, dynamic>),
       ),
     );
   }
@@ -122,63 +123,63 @@ class JioSaavnApi {
     );
   }
 
-  Future<SearchAll> searchAll(String query) async {
-    return await _jioSaavnGetCall<SearchAll>(
+  Future<SearchAllResponse> searchAll(String query) async {
+    return await _jioSaavnGetCall<SearchAllResponse>(
       '/search/all?query=${clearUrl(query)}',
-      (json) => SearchAll.fromJson(json),
+      (json) => SearchAllResponse.fromJson(json),
     );
   }
 
-  Future<TSearchResponse<Song>> searchSongs(
+  Future<SearchResponse<Song>> searchSongs(
     String query, {
     int page = 1,
     int limit = 10,
   }) async {
-    return await _jioSaavnGetCall<TSearchResponse<Song>>(
+    return await _jioSaavnGetCall<SearchResponse<Song>>(
       '/search/songs?query=${clearUrl(query)}&page=$page&limit=$limit',
-      (json) => TSearchResponse.fromJson(
+      (json) => SearchResponse.fromJson(
         json,
         (json) => Song.fromJson(json as Map<String, dynamic>),
       ),
     );
   }
 
-  Future<TSearchResponse<Album>> searchAlbums(
+  Future<SearchResponse<Album>> searchAlbums(
     String query, {
     int page = 1,
     int limit = 10,
   }) async {
-    return await _jioSaavnGetCall<TSearchResponse<Album>>(
+    return await _jioSaavnGetCall<SearchResponse<Album>>(
       '/search/albums?query=${clearUrl(query)}&page=$page&limit=$limit',
-      (json) => TSearchResponse.fromJson(
+      (json) => SearchResponse.fromJson(
         json,
         (json) => Album.fromJson(json as Map<String, dynamic>),
       ),
     );
   }
 
-  Future<TSearchResponse<Playlist>> searchPlaylists(
+  Future<SearchResponse<Playlist>> searchPlaylists(
     String query, {
     int page = 1,
     int limit = 10,
   }) async {
-    return await _jioSaavnGetCall<TSearchResponse<Playlist>>(
+    return await _jioSaavnGetCall<SearchResponse<Playlist>>(
       '/search/playlists?query=${clearUrl(query)}&page=$page&limit=$limit',
-      (json) => TSearchResponse.fromJson(
+      (json) => SearchResponse.fromJson(
         json,
         (json) => Playlist.fromJson(json as Map<String, dynamic>),
       ),
     );
   }
 
-  Future<TSearchResponse<Artist>> searchArtists(
+  Future<SearchResponse<Artist>> searchArtists(
     String query, {
     int page = 1,
     int limit = 10,
   }) async {
-    return await _jioSaavnGetCall<TSearchResponse<Artist>>(
+    return await _jioSaavnGetCall<SearchResponse<Artist>>(
       '/search/artists?query=${clearUrl(query)}&page=$page&limit=$limit',
-      (json) => TSearchResponse.fromJson(
+      (json) => SearchResponse.fromJson(
         json,
         (json) => Artist.fromJson(json as Map<String, dynamic>),
       ),

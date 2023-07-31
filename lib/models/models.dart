@@ -1,11 +1,9 @@
 export 'album.dart';
 export 'artist.dart';
-export 'chart.dart';
-export 'download_url.dart';
+export 'download_link.dart';
+export "lyrics.dart";
 export 'module.dart';
 export 'playlist.dart';
+export 'response.dart';
+export 'search.dart';
 export 'song.dart';
-export 't_response.dart';
-export 'trending.dart';
-export 'search_all.dart';
-export 'top_query.dart';

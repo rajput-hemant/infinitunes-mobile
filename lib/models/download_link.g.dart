@@ -1,17 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'download_url.dart';
+part of 'download_link.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-DownloadUrl _$DownloadUrlFromJson(Map<String, dynamic> json) => DownloadUrl(
-      quality: json['quality'] as String?,
-      link: json['link'] as String?,
+DownloadLink _$DownloadLinkFromJson(Map<String, dynamic> json) => DownloadLink(
+      quality: json['quality'] as String,
+      link: json['link'] as String,
     );
 
-Map<String, dynamic> _$DownloadUrlToJson(DownloadUrl instance) =>
+Map<String, dynamic> _$DownloadLinkToJson(DownloadLink instance) =>
     <String, dynamic>{
       'quality': instance.quality,
       'link': instance.link,
