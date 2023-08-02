@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'screens/screens.dart';
+
 Future<void> main() async {
   await dotenv.load();
 
@@ -19,25 +21,23 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Infinitunes'),
+      darkTheme: ThemeData.dark(
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-      body: const Center(
-        child: Text(
-          'An open-source Music Player App built with Flutter.',
-        ),
-      ),
+      themeMode: ThemeMode.dark,
+      home: const HomeScreen(),
+      onGenerateRoute: (s) {
+        if (s.name == Routes.albumScreen) {
+          return MaterialPageRoute(
+              builder: (ctx) => AlbumScreen(id: s.arguments as String));
+        } else if (s.name == Routes.playlistScreen) {
+          return MaterialPageRoute(
+              builder: (ctx) => PlaylistScreen(id: s.arguments as String));
+        } else {
+          return MaterialPageRoute(builder: (ctx) => const HomeScreen());
+        }
+      },
     );
   }
 }
